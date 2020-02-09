@@ -9,7 +9,7 @@ class UsersController < ApplicationController
         if logged_in?
             redirect to '/goals'
         else
-            erb :'users/index'
+            erb :index
         end
     end
 
