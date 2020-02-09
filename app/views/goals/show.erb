@@ -1,0 +1,8 @@
+<h2> <%= @goal.content %></h2>
+
+<form action=<%="/goals/#{@goal.id}/delete"%> method="POST">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="submit" value="Delete Goal" id="Delete goal">
+</form>
+
+<input type="submit" value="Edit Goal" id="Edit goal">

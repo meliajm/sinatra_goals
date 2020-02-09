@@ -1,2 +1,10 @@
 <% if logged_in? %>
 <h2>Welcome, <%= @user.username %></h2>
+    <form action="/goals" method="POST">
+    <label for="content">Content: 
+    <input type="text" name="content" id="content"><br>
+    </form>
+
+<% else %>
+<h2>Please log in to make your goals!</h2>
+<% end %>
