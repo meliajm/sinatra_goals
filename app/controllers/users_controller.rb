@@ -4,10 +4,11 @@ class UsersController < ApplicationController
     # other users cannot see other users' goals?
 
     # routes for user views
+    # add links to index
 
     get '/' do 
         if logged_in?
-            redirect to '/goals'
+            redirect to '/goals/goals'
         else
             erb :index
         end
@@ -15,7 +16,7 @@ class UsersController < ApplicationController
 
     get '/signup' do 
         if logged_in?
-            redirect to '/goals'
+            redirect to '/goals/goals'
         else
             erb :'users/new'
         end
@@ -27,15 +28,13 @@ class UsersController < ApplicationController
         else
             @user = User.create(username: params[:username], email: params[:email], password: params[:password])
             session[:user_id] = @user.id 
-            redirect to '/goals'
+            redirect to '/goals/goals'
         end
     end
 
-    # get '/goals/goals'
-
     get '/login' do 
         if logged_in?
-            redirect to '/goals'
+            redirect to '/goals/goals'
         else
             erb :'users/login'
         end
@@ -43,9 +42,9 @@ class UsersController < ApplicationController
 
     post '/login' do
         @user = User.find_by(username: params[:username])
-        if @user && @user.authenticate(param[:password])
+        if @user && @user.authenticate(params[:password])
             session[:user_id] = @user.id 
-            redirect to '/goals'
+            redirect to '/goals/goals'
         else
             redirect to '/signup' if !logged_in?
         end
