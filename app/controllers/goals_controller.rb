@@ -5,6 +5,7 @@ class GoalsController < ApplicationController
     # rake db:migrate
 
     # edit is not working - ditty error post
+    
     # delete is now working
 
     #create is working 
@@ -33,8 +34,9 @@ class GoalsController < ApplicationController
     end
     
     get '/goals/:id/edit' do 
-        @goal = Goal.find_by(id: params[:id])
         # binding.pry
+        @goal = Goal.find_by(id: params[:id])
+        
         if logged_in?
             erb :'goals/edit'
         else
@@ -42,7 +44,7 @@ class GoalsController < ApplicationController
         end
     end
 
-    post 'goals/:id' do 
+    post '/goals/:id' do 
         # binding.pry
         @goal = Goal.find_by(id: params[:id])
         @goal.update(content: params[:content])
@@ -56,7 +58,7 @@ class GoalsController < ApplicationController
 
     get '/goals/:id' do 
         if logged_in? 
-            # binding.pry
+            binding.pry
             @goal = Goal.find_by(id: params[:id])
             erb :'goals/show'
         else
