@@ -62,9 +62,4 @@ class UsersController < ApplicationController
             redirect to '/'
         end
     end
-
-    # make this route to delete users
-    # get '/delete/user' do 
-    # end
-
 end

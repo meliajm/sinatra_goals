@@ -4,7 +4,7 @@ class GoalsController < ApplicationController
     # rake db:create_migration NAME=create_users
     # rake db:migrate
 
-    # edit is not working - ditty error post
+    # edit is now working 
     
     # delete is now working
 
@@ -17,7 +17,6 @@ class GoalsController < ApplicationController
             @user = current_user
             # @goals = Goal.all 
             @goals = Goal.all.select { |goal| goal.user_id == current_user.id } 
-            
             erb :'goals/goals'
         else
             redirect to '/login'
@@ -48,9 +47,11 @@ class GoalsController < ApplicationController
         # binding.pry
         @goal = Goal.find_by(id: params[:id])
         @goal.update(content: params[:content])
-        if logged_in? 
+        if logged_in? && params[:content] != ""
             # erb :'goals/show'
-            redirect "/goals/#{@goal.id}"
+            redirect to "/goals/#{@goal.id}"
+        elsif
+            redirect to "/goals/#{@goal.id}/edit"
         else
             redirect to '/login'
         end
@@ -58,7 +59,7 @@ class GoalsController < ApplicationController
 
     get '/goals/:id' do 
         if logged_in? 
-            binding.pry
+            # binding.pry
             @goal = Goal.find_by(id: params[:id])
             erb :'goals/show'
         else
