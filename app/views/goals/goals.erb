@@ -1,7 +1,10 @@
-<h2>Welcome <%= "#{@user.username}" %></h2>
+<h2>Hello <%= "#{@user.username}" %></h2>
 
-    <% @goals.each do |goal| %>
-    <p><%= goal.content %></p>
+    <% @goals.each_with_index do |goal, index| %>
+    <p><%= "#{index+1}.  #{goal.content}" %></p>
     <% end %>
+    
+    <p><a href="/goals/new">Make a new goal</a></p>
+    <br>
 
     <p><a href="/logout">Log Out</a></p>

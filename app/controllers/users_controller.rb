@@ -5,10 +5,13 @@ class UsersController < ApplicationController
 
     # routes for user views
     # add links to index
-
+    # hacks? ways to break in or break site?
+    
+    # any user can see all goals
+   
     get '/' do 
         if logged_in?
-            redirect to '/goals/goals'
+            redirect to '/goals'
         else
             erb :index
         end
@@ -16,7 +19,7 @@ class UsersController < ApplicationController
 
     get '/signup' do 
         if logged_in?
-            redirect to '/goals/goals'
+            redirect to '/goals'
         else
             erb :'users/new'
         end
@@ -28,13 +31,14 @@ class UsersController < ApplicationController
         else
             @user = User.create(username: params[:username], email: params[:email], password: params[:password])
             session[:user_id] = @user.id 
-            redirect to '/goals/goals'
+            redirect to '/goals'
         end
     end
 
     get '/login' do 
+        # @error_message = params[:error]
         if logged_in?
-            redirect to '/goals/goals'
+            redirect to '/goals'
         else
             erb :'users/login'
         end
@@ -44,7 +48,7 @@ class UsersController < ApplicationController
         @user = User.find_by(username: params[:username])
         if @user && @user.authenticate(params[:password])
             session[:user_id] = @user.id 
-            redirect to '/goals/goals'
+            redirect to '/goals'
         else
             redirect to '/signup' if !logged_in?
         end
