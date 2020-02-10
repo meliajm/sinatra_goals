@@ -2,6 +2,10 @@
 
     <% @goals.each_with_index do |goal, index| %>
     <p><%= "#{index+1}.  #{goal.content}" %></p>
+    <p>By when: <%= "#{goal.by_when}"%></p>
+    <p>Created at: <%= "#{goal.created_at}"%></p>
+    
+    
     <p><a href=<%="/goals/#{goal.id}/edit"%>>Edit this goal</a></p>
     <% end %>
         

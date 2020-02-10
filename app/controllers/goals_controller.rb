@@ -13,6 +13,7 @@ class GoalsController < ApplicationController
 
     #in browser no dots?
     # add routing protection so you cannot jump to goal that is not yours
+    # look at birthdate to get datetime for by_when
     
 
     get '/goals' do 
@@ -95,7 +96,7 @@ class GoalsController < ApplicationController
         end
     end
 
-    delete '/goals/:id/delete' do # this is working now
+    delete '/goals/:id/delete' do 
         @goal = Goal.find_by(id: params[:id])
         # binding.pry
         if logged_in? && current_user.username == @goal.user.username
@@ -103,6 +104,5 @@ class GoalsController < ApplicationController
             @goal.delete
             redirect to '/goals'
         end
-        
     end
 end

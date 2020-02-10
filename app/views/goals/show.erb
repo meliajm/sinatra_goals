@@ -1,4 +1,5 @@
 <h2> <%= @goal.content %></h2>
+<h3> <%= @goal.by_when %></h3>
 
 <form action=<%="/goals/#{@goal.id}/delete"%> method="POST">
     <input type="hidden" name="_method" value="DELETE">
