@@ -11,6 +11,10 @@ class GoalsController < ApplicationController
     #create is working 
     # read is working too
 
+    #in browser no dots?
+    # add routing protection so you cannot jump to goal that is not yours
+    
+
     get '/goals' do 
         # binding.pry
         if logged_in? 
@@ -24,7 +28,7 @@ class GoalsController < ApplicationController
     end
 
     get '/goals/new' do
-        if logged_in?
+        if logged_in? && session[:user_id] == current_user.id 
             @user = current_user
             erb :'goals/new'
         else
@@ -36,7 +40,7 @@ class GoalsController < ApplicationController
         # binding.pry
         @goal = Goal.find_by(id: params[:id])
         
-        if logged_in?
+        if logged_in? && current_user.username == @goal.user.username 
             erb :'goals/edit'
         else
             redirect to '/login'
@@ -47,7 +51,7 @@ class GoalsController < ApplicationController
         # binding.pry
         @goal = Goal.find_by(id: params[:id])
         @goal.update(content: params[:content])
-        if logged_in? && params[:content] != ""
+        if logged_in? && params[:content] != "" && current_user.username == @goal.user.username 
             # erb :'goals/show'
             redirect to "/goals/#{@goal.id}"
         elsif
@@ -58,9 +62,9 @@ class GoalsController < ApplicationController
     end
 
     get '/goals/:id' do 
-        if logged_in? 
+        @goal = Goal.find_by(id: params[:id])
+        if logged_in? && current_user.username == @goal.user.username
             # binding.pry
-            @goal = Goal.find_by(id: params[:id])
             erb :'goals/show'
         else
             redirect to '/login'
