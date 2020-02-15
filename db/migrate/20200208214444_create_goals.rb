@@ -4,6 +4,7 @@ class CreateGoals < ActiveRecord::Migration[6.0]
       t.text :content
       t.integer :user_id
       t.datetime :by_when
+      t.string :completed
       t.timestamps null: false
     end
   end

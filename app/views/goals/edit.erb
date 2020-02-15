@@ -6,8 +6,12 @@
   <input type="text" name="content" value="<%=@goal.content %>"> 
   <br>
   <label> Edit your by when: </label>
-  <!--value for date does not pre populate -->
-  <input type="date" name="by_when" value="<%=@goal.by_when %>"> 
+  <!--value for date does not pre populate  "2018-07-22"-->
+  <!--<input type="date" name="by_when" value="<%= @goal.by_when %>"> -->
+  <input type="date" name="by_when" value="<%= @goal.by_when.to_s[0..9] %>">
+  <br>
+  <label> Check if completed: </label>
+  <input type="checkbox" name="completed" value="on" if ><!--<%= @goal.completed = "completed" %>-->
   <br>
   <input type="submit" value="Update">
 </form>
