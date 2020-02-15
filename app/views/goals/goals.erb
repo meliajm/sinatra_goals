@@ -72,7 +72,7 @@
     <!--<%total_goals = @goals.length %>
 <h2><%= total_completed = total_completed.to_f  %></h2>
 <h2><%= total_goals %></h2>-->
-    <p>Percentage of Goals Completed: <%= total_completed/total_goals * 100 %></p>
+    <p>Percentage of Goals Completed: <%= (total_completed/total_goals * 100).round(2)%></p>
     <p><a href="/goals/new">Make a new goal</a></p>
     <br>
 

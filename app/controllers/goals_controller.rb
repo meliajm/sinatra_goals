@@ -48,9 +48,9 @@ class GoalsController < ApplicationController
     end
 
     patch '/goals/:id' do 
-        binding.pry
         @goal = Goal.find_by(id: params[:id])
         @goal.update(content: params[:content], by_when: params[:by_when],  completed: params[:completed])
+        # binding.pry
         if logged_in? && params[:content] != "" && current_user.username == @goal.user.username 
             # erb :'goals/show'
             redirect to "/goals/#{@goal.id}"
