@@ -1,5 +1,7 @@
 minimum viable product
 
+https://drive.google.com/open?id=12NVwVjyfVrIYdo652CntYxL7qs9C7S59
+
 a user can:
     -login
     -write goals, this is create
