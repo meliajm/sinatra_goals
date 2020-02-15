@@ -13,7 +13,6 @@ class GoalsController < ApplicationController
 
     #in browser no dots?
     # add routing protection so you cannot jump to goal that is not yours
-    # look at birthdate to get datetime for by_when
     
 
     get '/goals' do 
@@ -48,10 +47,10 @@ class GoalsController < ApplicationController
         end
     end
 
-    post '/goals/:id' do 
+    patch '/goals/:id' do 
         # binding.pry
         @goal = Goal.find_by(id: params[:id])
-        @goal.update(content: params[:content])
+        @goal.update(content: params[:content], by_when: params[:by_when])
         if logged_in? && params[:content] != "" && current_user.username == @goal.user.username 
             # erb :'goals/show'
             redirect to "/goals/#{@goal.id}"
@@ -64,6 +63,7 @@ class GoalsController < ApplicationController
 
     get '/goals/:id' do 
         @goal = Goal.find_by(id: params[:id])
+        # binding.pry
         if logged_in? && current_user.username == @goal.user.username
             # binding.pry
             erb :'goals/show'
@@ -77,26 +77,14 @@ class GoalsController < ApplicationController
         if params[:content] == ""
             redirect to '/goals/new'
         else
-            @goal = Goal.create(content: params[:content])
+            @goal = Goal.create(content: params[:content], by_when: params[:by_when])
             current_user.goals << @goal
-            @goal.save
+            # @goal.save
             redirect to "/goals/#{@goal.id}"
         end
     end
 
-    patch '/goals/:id' do 
-        if params[:content] == ""
-            redirect to "/goals/#{params[:id]}/edit"
-        else
-            @goal = Goal.find_by(id: params[:id])
-            @goal.update(content: params[:content])
-            @goal.save 
-
-            redirect to "/goals/#{@goal.id}"
-        end
-    end
-
-    delete '/goals/:id/delete' do 
+    delete '/goals/:id' do 
         @goal = Goal.find_by(id: params[:id])
         # binding.pry
         if logged_in? && current_user.username == @goal.user.username

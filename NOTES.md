@@ -19,3 +19,9 @@ ___________          ______________________
 2                       check 
 3                       check
 
+percentage complete
+
+
+
+ <input type="date" name="by_when" id="by_when">
+

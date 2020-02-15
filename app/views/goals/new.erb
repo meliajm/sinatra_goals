@@ -1,10 +1,10 @@
 <% if logged_in? %>
 <h2>Hello, <%= @user.username %></h2>
     <form action="/goals" method="POST">
-    <label for="content">Content: 
+    <label for="content">Content:   
     <input type="text" name="content" id="content"><br>
-    <label for="by_when">Content: 
-    <input type="text" name="by_when" id="by_when"><br>
+    <label for="by_when">By When: 
+    <input type="date" name="by_when" id="by_when"><br>
     <input type="submit" name="Submit" id="submit">
     </form>
 
