@@ -30,7 +30,7 @@
   <div class="column" style="background-color: rgb(216, 78, 36);">
     <h2>Goals to be completed:</h2>
     <p><% @goals.each_with_index do |goal, index| %>
-        <% if goal.completed != "completed"%>
+        <% if goal.completed != "on"%>
             <p><%= "#{index+1}.  #{goal.content}" %></p>
             <p>By when: <%= "#{goal.by_when}"%></p>
             <p>Created at: <%= "#{goal.created_at}"%></p>
@@ -48,24 +48,31 @@
   <div class="column" style="background-color: rgb(132, 182, 199);">
   
     <h2>Completed goals!!!</h2>
+    <% total_completed = 0 %>
     <p><% @goals.each_with_index do |goal, index| %>
-        <% if goal.completed == "completed"%>
+    
+
+        <% if goal.completed == "on"%>
             <p><%= "#{index+1}.  #{goal.content}" %></p>
             <p>By when: <%= "#{goal.by_when}"%></p>
             <p>Created at: <%= "#{goal.created_at}"%></p>
+            <% total_completed += 1 %>
+            
         
     <p><a href=<%="/goals/#{goal.id}/edit"%>>Edit this goal</a></p>
     
         <% end %>
     <% end %>
+
         
 
     <br>
   </div>
 </div>
-    <%total_goals = @goals.length %>
-    
-    <p></p>
+    <!--<%total_goals = @goals.length %>
+<h2><%= total_completed = total_completed.to_f  %></h2>
+<h2><%= total_goals %></h2>-->
+    <p>Percentage of Goals Completed: <%= total_completed/total_goals * 100 %></p>
     <p><a href="/goals/new">Make a new goal</a></p>
     <br>
 
