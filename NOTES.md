@@ -21,7 +21,7 @@ ___________          ______________________
 
 percentage complete
 
-1. [] add logic for indexing goals properly in 2 columns
+1. [x] add logic for indexing goals properly in 2 columns
 2. [x] output only 2 decimal places for percent completed
 3. [x] pre-populate by when
 
