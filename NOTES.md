@@ -24,6 +24,8 @@ percentage complete
 1. [x] add logic for indexing goals properly in 2 columns
 2. [x] output only 2 decimal places for percent completed
 3. [x] pre-populate by when
+4. [] figure out how to merge properly with github
+5. [] connect local email to github
 
 
  <input type="date" name="by_when" id="by_when">
