@@ -9,5 +9,8 @@
   <!--value for date does not pre populate -->
   <input type="date" name="by_when" value="<%=@goal.by_when %>"> 
   <br>
+  <label> Check if completed: </label>
+  <input type="checkbox" name="completed"><%= @goal.completed = "completed" %>
+  <br>
   <input type="submit" value="Update">
 </form>

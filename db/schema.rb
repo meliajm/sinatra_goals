@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 2020_02_08_214444) do
     t.text "content"
     t.integer "user_id"
     t.datetime "by_when"
+    t.string "completed"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
