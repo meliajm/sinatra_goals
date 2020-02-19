@@ -34,3 +34,22 @@ percentage complete
 
  <input type="date" name="by_when" id="by_when">
 
+ <!--<% not_completed_goals_array = [] %>
+    <% completed_goals_array = [] %>
+    <p><% @goals.each do |goal| %>
+        <% if goal.completed != "on"%>
+            <% not_completed_goals_array << goal %>
+        <% else %>  
+            <% completed_goals_array << goal %>
+        <% end %>
+    <% end %>-->
+
+       <!--<%total_goals = @goals.length %>
+<h2><%= total_completed = total_completed.to_f  %></h2>
+<h2><%= total_goals %></h2>
+<h2><%= @user.goals.percent_complete%></h2>
+<%= (total_completed/total_goals * 100).round(2)%>
+<% total_completed = 0 %>
+<% total_completed += 1 %>
+-->
+

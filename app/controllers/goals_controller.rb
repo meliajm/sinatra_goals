@@ -13,15 +13,22 @@ class GoalsController < ApplicationController
 
     #in browser no dots?
     # add routing protection so you cannot jump to goal that is not yours
+    # add validate to routes
     
 
     get '/goals' do 
-        # binding.pry
+        
         if logged_in? 
             @user = current_user
             # @goals = Goal.all 
             # @goals = Goal.all.select { |goal| goal.user_id == current_user.id } 
-            @goals = @user.goals 
+            # @goals =  
+            user_goals = @user.goals
+            
+            @completed_goals = user_goals.completed_goals
+            # binding.pry
+            @not_completed_goals = user_goals.not_completed_goals
+            @percentage_complete = user_goals.percent_complete
             erb :'goals/goals'
         else
             redirect to '/login'
