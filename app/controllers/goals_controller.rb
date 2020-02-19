@@ -21,7 +21,7 @@ class GoalsController < ApplicationController
             @user = current_user
             # @goals = Goal.all 
             # @goals = Goal.all.select { |goal| goal.user_id == current_user.id } 
-            @goals = Goal.find_goals_by_user(@user)
+            @goals = @user.goals 
             erb :'goals/goals'
         else
             redirect to '/login'
@@ -40,7 +40,7 @@ class GoalsController < ApplicationController
     get '/goals/:id/edit' do 
         # binding.pry
         @goal = Goal.find_by(id: params[:id])
-        
+        # validate
         if logged_in? && goal_belongs_to_user? 
             erb :'goals/edit'
         else
@@ -50,13 +50,15 @@ class GoalsController < ApplicationController
 
     patch '/goals/:id' do 
         @goal = Goal.find_by(id: params[:id])
-        @goal.update(content: params[:content], by_when: params[:by_when],  completed: params[:completed])
+        # validate
         # binding.pry
-        if logged_in? && @goal.valid? && goal_belongs_to_user? 
-            # erb :'goals/show'
-            redirect to "/goals/#{@goal.id}"
-        # elsif 
-        #     redirect to "/goals/#{@goal.id}/edit"
+        if logged_in? && goal_belongs_to_user? 
+            @goal.update(content: params[:content], by_when: params[:by_when],  completed: params[:completed])
+                if @goal.valid?
+                    redirect to "/goals/#{@goal.id}"
+                else
+                    redirect to "/goals/#{@goal.id}/edit"
+                end
         else
             redirect to '/login'
         end
@@ -64,13 +66,9 @@ class GoalsController < ApplicationController
 
     get '/goals/:id' do 
         @goal = Goal.find_by(id: params[:id])
+        validate
+        erb :'goals/show'
         # binding.pry
-        if logged_in? && goal_belongs_to_user?
-            # binding.pry
-            erb :'goals/show'
-        else
-            redirect to '/login'
-        end
     end 
 
     post '/goals' do 
@@ -90,7 +88,7 @@ class GoalsController < ApplicationController
     delete '/goals/:id' do 
         @goal = Goal.find_by(id: params[:id])
         # binding.pry
-        if logged_in? && goal_belongs_to_user?
+        if logged_in? && goal_belongs_to_user? #validate
            
             @goal.delete
             redirect to '/goals'
@@ -101,6 +99,12 @@ class GoalsController < ApplicationController
     helpers do 
         def goal_belongs_to_user?
             current_user.username == @goal.user.username
+        end
+
+        def validate
+            if !logged_in? || !goal_belongs_to_user?
+                redirect to '/login'
+            end
         end
     end
 
