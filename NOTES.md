@@ -53,3 +53,6 @@ percentage complete
 <% total_completed += 1 %>
 -->
 
+  <input type="checkbox" name="completed" value="<%= @user.id %>" <%='checked' if @goal.user==@user %>></input><br> 
+
+

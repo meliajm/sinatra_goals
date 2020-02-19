@@ -11,7 +11,9 @@
   <input type="date" name="by_when" value="<%= @goal.by_when.to_s[0..9] %>">
   <br>
   <label> Check if completed: </label>
-  <input type="checkbox" name="completed" value="on" if ><!--<%= @goal.completed = "completed" %>-->
+  <!--<input type="checkbox" name="completed" value="on" if ><%= @goal.completed == "completed" %>-->
+    <input type="checkbox" name="completed" value="<%= @user.id %>" <%='checked' if @goal.completed %>></input><br> 
+
   <br>
   <input type="submit" value="Update">
 </form>

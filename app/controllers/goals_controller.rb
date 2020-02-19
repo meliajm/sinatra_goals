@@ -12,21 +12,16 @@ class GoalsController < ApplicationController
     # read is working too
 
     #in browser no dots?
-    # add routing protection so you cannot jump to goal that is not yours
-    # add validate to routes
+    # added routing protection so you cannot jump to goal that is not yours
+    # added validate to routes 
+    # can add slugs with modules
     
 
     get '/goals' do 
-        
         if logged_in? 
-            @user = current_user
-            # @goals = Goal.all 
-            # @goals = Goal.all.select { |goal| goal.user_id == current_user.id } 
-            # @goals =  
-            user_goals = @user.goals
-            
+            @user = current_user 
+            user_goals = @user.goals            
             @completed_goals = user_goals.completed_goals
-            # binding.pry
             @not_completed_goals = user_goals.not_completed_goals
             @percentage_complete = user_goals.percent_complete
             erb :'goals/goals'
@@ -45,30 +40,30 @@ class GoalsController < ApplicationController
     end
     
     get '/goals/:id/edit' do 
-        # binding.pry
         @goal = Goal.find_by(id: params[:id])
-        # validate
-        if logged_in? && goal_belongs_to_user? 
-            erb :'goals/edit'
-        else
-            redirect to '/login'
-        end
+        @user = current_user
+        # binding.pry
+
+        validate
+        erb :'goals/edit'
+        # if logged_in? && goal_belongs_to_user? 
+        #     erb :'goals/edit'
+        # else
+        #     redirect to '/login'
+        # end
     end
 
     patch '/goals/:id' do 
         @goal = Goal.find_by(id: params[:id])
-        # validate
+        validate
         # binding.pry
-        if logged_in? && goal_belongs_to_user? 
-            @goal.update(content: params[:content], by_when: params[:by_when],  completed: params[:completed])
-                if @goal.valid?
-                    redirect to "/goals/#{@goal.id}"
-                else
-                    redirect to "/goals/#{@goal.id}/edit"
-                end
+        @goal.update(content: params[:content], by_when: params[:by_when],  completed: params[:completed])
+        if @goal.valid?
+            redirect to "/goals/#{@goal.id}"
         else
-            redirect to '/login'
+            redirect to "/goals/#{@goal.id}/edit"
         end
+        
     end
 
     get '/goals/:id' do 
@@ -95,11 +90,9 @@ class GoalsController < ApplicationController
     delete '/goals/:id' do 
         @goal = Goal.find_by(id: params[:id])
         # binding.pry
-        if logged_in? && goal_belongs_to_user? #validate
-           
-            @goal.delete
-            redirect to '/goals'
-        end
+        validate   
+        @goal.delete
+        redirect to '/goals'
     end
 
 

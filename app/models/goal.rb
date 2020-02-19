@@ -7,11 +7,11 @@ class Goal < ActiveRecord::Base
     end
 
     def self.completed_goals
-        self.all.select { |goal| goal.completed == "on"}
+        self.all.select { |goal| goal.completed != nil}
     end
 
     def self.not_completed_goals
-        self.all.select { |goal| goal.completed != "on"}
+        self.all.select { |goal| goal.completed == nil}
     end
 
     def self.percent_complete
