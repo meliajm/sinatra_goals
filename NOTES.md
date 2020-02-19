@@ -29,6 +29,7 @@ percentage complete
 3. [x] pre-populate by when
 4. [] figure out how to merge properly with github
 5. [x] connect local email to github
+6. [] add delete button to edit page
 
 
  <input type="date" name="by_when" id="by_when">

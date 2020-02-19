@@ -1,4 +1,4 @@
-require './config/environment'
+require './config/environment' # does this app need this?
 
 class ApplicationController < Sinatra::Base
 
@@ -16,6 +16,10 @@ class ApplicationController < Sinatra::Base
 
     def current_user
         User.find(session[:user_id])
+    end
+
+    def 
+        current_user.username == @goal.user.username
     end
   end
 

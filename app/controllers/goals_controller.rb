@@ -20,7 +20,8 @@ class GoalsController < ApplicationController
         if logged_in? 
             @user = current_user
             # @goals = Goal.all 
-            @goals = Goal.all.select { |goal| goal.user_id == current_user.id } 
+            # @goals = Goal.all.select { |goal| goal.user_id == current_user.id } 
+            @goals = Goal.find_goals_by_user(@user)
             erb :'goals/goals'
         else
             redirect to '/login'
@@ -40,7 +41,7 @@ class GoalsController < ApplicationController
         # binding.pry
         @goal = Goal.find_by(id: params[:id])
         
-        if logged_in? && current_user.username == @goal.user.username 
+        if logged_in? && goal_belongs_to_user? 
             erb :'goals/edit'
         else
             redirect to '/login'
@@ -51,11 +52,11 @@ class GoalsController < ApplicationController
         @goal = Goal.find_by(id: params[:id])
         @goal.update(content: params[:content], by_when: params[:by_when],  completed: params[:completed])
         # binding.pry
-        if logged_in? && params[:content] != "" && current_user.username == @goal.user.username 
+        if logged_in? && @goal.valid? && goal_belongs_to_user? 
             # erb :'goals/show'
             redirect to "/goals/#{@goal.id}"
-        elsif
-            redirect to "/goals/#{@goal.id}/edit"
+        # elsif 
+        #     redirect to "/goals/#{@goal.id}/edit"
         else
             redirect to '/login'
         end
@@ -64,7 +65,7 @@ class GoalsController < ApplicationController
     get '/goals/:id' do 
         @goal = Goal.find_by(id: params[:id])
         # binding.pry
-        if logged_in? && current_user.username == @goal.user.username
+        if logged_in? && goal_belongs_to_user?
             # binding.pry
             erb :'goals/show'
         else
@@ -74,10 +75,12 @@ class GoalsController < ApplicationController
 
     post '/goals' do 
         # binding.pry
-        if params[:content] == ""
+        @goal = Goal.create(content: params[:content], by_when: params[:by_when], completed: params[:completed])
+
+        if !@goal.valid?
             redirect to '/goals/new'
         else
-            @goal = Goal.create(content: params[:content], by_when: params[:by_when], completed: params[:completed])
+            # @goal = Goal.create(content: params[:content], by_when: params[:by_when], completed: params[:completed])
             current_user.goals << @goal
             # @goal.save
             redirect to "/goals/#{@goal.id}"
@@ -87,10 +90,18 @@ class GoalsController < ApplicationController
     delete '/goals/:id' do 
         @goal = Goal.find_by(id: params[:id])
         # binding.pry
-        if logged_in? && current_user.username == @goal.user.username
+        if logged_in? && goal_belongs_to_user?
            
             @goal.delete
             redirect to '/goals'
         end
     end
+
+
+    helpers do 
+        def goal_belongs_to_user?
+            current_user.username == @goal.user.username
+        end
+    end
+
 end

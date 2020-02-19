@@ -26,8 +26,8 @@ class UsersController < ApplicationController
     end
 
     post "/signup" do 
-        # if params[:username] == "" || params[:email] == "" || params[:password] == ""
         @user = User.create(username: params[:username], email: params[:email], password: params[:password])
+        # binding.pry
         if @user.valid?
             session[:user_id] = @user.id 
             redirect to '/goals'
@@ -37,7 +37,6 @@ class UsersController < ApplicationController
     end
 
     get '/login' do 
-        # @error_message = params[:error]
         if logged_in?
             redirect to '/goals'
         else
