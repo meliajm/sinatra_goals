@@ -39,8 +39,8 @@ class GoalsController < ApplicationController
         end
     end
     
-    get '/goals/:id/edit' do 
-        @goal = Goal.find_by(id: params[:id])
+    get '/goals/:slug/edit' do 
+        @goal = Goal.find_by_slug(params[:slug])
         @user = current_user
         # binding.pry
 
@@ -53,21 +53,21 @@ class GoalsController < ApplicationController
         # end
     end
 
-    patch '/goals/:id' do 
-        @goal = Goal.find_by(id: params[:id])
+    patch '/goals/:slug' do 
+        @goal = Goal.find_by_slug(params[:slug])
         validate
         # binding.pry
         @goal.update(content: params[:content], by_when: params[:by_when],  completed: params[:completed])
         if @goal.valid?
-            redirect to "/goals/#{@goal.id}"
+            redirect to "/goals/#{@goal.slug}"
         else
-            redirect to "/goals/#{@goal.id}/edit"
+            redirect to "/goals/#{@goal.slug}/edit"
         end
         
     end
 
-    get '/goals/:id' do 
-        @goal = Goal.find_by(id: params[:id])
+    get '/goals/:slug' do 
+        @goal = Goal.find_by_slug(params[:slug])
         validate
         erb :'goals/show'
         # binding.pry
@@ -83,12 +83,12 @@ class GoalsController < ApplicationController
             # @goal = Goal.create(content: params[:content], by_when: params[:by_when], completed: params[:completed])
             current_user.goals << @goal
             # @goal.save
-            redirect to "/goals/#{@goal.id}"
+            redirect to "/goals/#{@goal.slug}"
         end
     end
 
-    delete '/goals/:id' do 
-        @goal = Goal.find_by(id: params[:id])
+    delete '/goals/:slug' do 
+        @goal = Goal.find_by_slug(params[:slug])
         # binding.pry
         validate   
         @goal.delete

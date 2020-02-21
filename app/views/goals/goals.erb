@@ -35,7 +35,7 @@
         <p>By when: <%= "#{not_completed_goal.by_when}"%></p>
         <p>Created at: <%= "#{not_completed_goal.created_at}"%></p>
 
-        <p><a href=<%="/goals/#{not_completed_goal.id}/edit"%>>Edit this goal</a></p>
+        <p><a href=<%="/goals/#{not_completed_goal.slug}/edit"%>>Edit this goal</a></p>
     <% end %>
     
         
@@ -53,7 +53,7 @@
             <p><%= "#{index+1}.  #{completed_goal.content}" %></p>
             <p>By when: <%= "#{completed_goal.by_when}"%></p>
             <p>Created at: <%= "#{completed_goal.created_at}"%></p>
-            <p><a href=<%="/goals/#{completed_goal.id}/edit"%>>Edit this goal</a></p>
+            <p><a href=<%="/goals/#{completed_goal.slug}/edit"%>>Edit this goal</a></p>
     
     <% end %>
 

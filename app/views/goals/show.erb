@@ -1,11 +1,11 @@
 <h2> <%= @goal.content %></h2>
 <p> <strong>By when: </strong> <%= @goal.by_when %></p>
 
-<form action=<%="/goals/#{@goal.id}"%> method="POST">
+<form action=<%="/goals/#{@goal.slug}"%> method="POST">
     <input type="hidden" name="_method" value="DELETE">
     <input type="submit" value="Delete Goal" id="Delete goal">
 </form>
 
-    <p><a href=<%="/goals/#{@goal.id}/edit"%>>Edit this goal</a></p>
+    <p><a href=<%="/goals/#{@goal.slug}/edit"%>>Edit this goal</a></p>
     <p><a href=<%="/goals"%>>See all my goals</a></p>
 

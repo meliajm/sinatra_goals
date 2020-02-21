@@ -22,6 +22,14 @@ class Goal < ActiveRecord::Base
         (total_completed/total_goals.to_f * 100).round(2)
     end
 
+    def slug
+        self.content.downcase.gsub(/\s+/, '-')
+    end
+
+    def self.find_by_slug(slug)
+        self.all.find{ |goal_slug| goal_slug.slug == slug }
+    end
+
 
 end
 

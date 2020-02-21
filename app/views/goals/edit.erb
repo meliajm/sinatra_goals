@@ -1,6 +1,6 @@
 <h2>Edit: <%= @goal.content %></h2>
 
-<form action="/goals/<%=@goal.id %>" method="POST">
+<form action="/goals/<%=@goal.slug %>" method="POST">
 <input type="hidden" name="_method" value="PATCH">
   <label> Edit your goal's content: </label>
   <input type="text" name="content" value="<%=@goal.content %>"> 
