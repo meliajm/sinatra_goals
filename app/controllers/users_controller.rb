@@ -1,14 +1,5 @@
 class UsersController < ApplicationController 
 
-    #is it okay for only the owner of a goal to see their goals?
-    # other users cannot see other users' goals?
-
-    # routes for user views
-    # add links to index
-    # hacks? ways to break in or break site?
-    
-    # any user can see all goals
-   
     get '/' do 
         if logged_in?
             redirect to '/goals'
@@ -27,7 +18,6 @@ class UsersController < ApplicationController
 
     post "/signup" do 
         @user = User.create(username: params[:username], email: params[:email], password: params[:password])
-        # binding.pry
         if @user.valid?
             session[:user_id] = @user.id 
             redirect to '/goals'

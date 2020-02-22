@@ -55,4 +55,34 @@ percentage complete
 
   <input type="checkbox" name="completed" value="<%= @user.id %>" <%='checked' if @goal.user==@user %>></input><br> 
 
+# routes for goals views
+    # rake db:create_migration NAME=create_movies
+    # rake db:create_migration NAME=create_users
+    # rake db:migrate
 
+    # edit is now working 
+    
+    # delete is now working
+
+    #create is working 
+    # read is working too
+
+    #in browser no dots?
+    # added routing protection so you cannot jump to goal that is not yours
+    # added validate to routes 
+    # can add slugs with modules
+# if logged_in? && goal_belongs_to_user? 
+        #     erb :'goals/edit'
+        # else
+        #     redirect to '/login'
+        # end
+
+#is it okay for only the owner of a goal to see their goals?
+    # other users cannot see other users' goals?
+
+    # routes for user views
+    # add links to index
+    # hacks? ways to break in or break site?
+    
+    # any user can see all goals
+   
